@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your Name | Electronics Blog</title>
+<meta name="description" content="DIY electronics projects">
+<title>Contact | Your Name</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -85,51 +86,44 @@ footer p{margin:0}
 <body>
 <header>
   <div class="wrap">
-    <h1>Your Name</h1>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">Ω</div>
+      <h1>Your Name's Electronics Notebook</h1>
+    </div>
     <nav aria-label="Main">
       <ul>
-        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a>
           <ul>
             <li><a href="projects/esp32-weather/index.html">ESP32 Weather Station</a></li>
           </ul>
         </li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<div class="wrap layout">
-  <main>
-    <article class="post">
-      <h2><a href="posts/esp32-deep-sleep.html">ESP32: Deep Sleep Weather Logger</a></h2>
-      <div class="meta"><a class="tag" href="#">ESP32</a><a class="tag" href="#">sensors</a><a class="tag" href="#">low power</a><span>• 2 October, 2026</span></div>
-      <p>How to log temperature and humidity and run for months on one battery.</p>
-      <a href="posts/esp32-deep-sleep.html">read more</a>
-    </article>
-
-    <article class="post">
-      <h2><a href="posts/op-amp-basics.html">Op-Amp Amplifier Basics</a></h2>
-      <div class="meta"><a class="tag" href="#">analog</a><a class="tag" href="#">op-amps</a><span>• 18 September, 2026</span></div>
-      <p>Build and measure inverting and non-inverting stages on a breadboard.</p>
-      <a href="posts/op-amp-basics.html">read more</a>
-    </article>
-
-    <article class="post">
-      <h2><a href="posts/pcb-kicad.html">Your First PCB in KiCad</a></h2>
-      <div class="meta"><a class="tag" href="#">KiCad</a><a class="tag" href="#">PCB</a><span>• 4 September, 2026</span></div>
-      <p>From schematic to Gerber files, ready to send to a board house.</p>
-      <a href="posts/pcb-kicad.html">read more</a>
-    </article>
-
-    <p class="pager">Page 1 / 1</p>
-  </main>
-</div>
+<main class="wrap">
+  <h1>Contact</h1>
+  <article class="project">
+    <h2>Get in touch</h2>
+    <p>Questions about a project, or want to say hello? Email me or find me online.</p>
+    <p><a href="mailto:you@example.com">you@example.com</a></p>
+    <p><a href="https://github.com/yourusername">GitHub</a> &middot; <a href="https://www.linkedin.com/in/yourname">LinkedIn</a></p>
+  </article>
+</main>
 
 <footer>
-  <div class="wrap">Your Name 2026. Published with <a href="https://pages.github.com/">GitHub Pages</a>.</div>
+  <div class="wrap">
+    <ul>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="disclaimer.html">Disclaimer</a></li>
+      <li><a href="legal.html">Legal notice</a></li>
+    </ul>
+    <p>Last change: 02.10.2026 &nbsp; © 2026 Your Name</p>
+  </div>
 </footer>
 </body>
 </html>

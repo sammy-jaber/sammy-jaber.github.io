@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32 Weather Station | Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Main site theme: light grey, blue accent, IBM Plex Sans */
+:root{--bg:#d6d9dc;--paper:#f4f5f6;--ink:#1e2328;--muted:#4d565e;--line:#aab1b8;--accent:#0b5fa5;--accent-ink:#ffffff;--hover:#e3e6e8}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font:1rem/1.65 "IBM Plex Sans",system-ui,sans-serif}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:52rem;margin:0 auto;padding:0 1.25rem}
+
+header{background:linear-gradient(rgba(244,245,246,.82),rgba(244,245,246,.82)),url("../../images/header.jpg") center/cover no-repeat,var(--paper);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:.9rem;padding:1.25rem 0 .75rem}
+.logo{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 1.2rem "IBM Plex Sans",sans-serif}
+.brand h1{margin:0;font:700 1.35rem/1.2 "IBM Plex Sans",sans-serif}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.25rem}
+nav li{position:relative}
+nav a{display:block;padding:.55rem .8rem;color:var(--ink);text-decoration:none;border-radius:.3rem}
+nav a:hover,nav a[aria-current]{background:var(--hover)}
+nav a[aria-current]{font-weight:600;box-shadow:inset 0 -3px var(--accent);border-radius:.3rem .3rem 0 0}
+nav li ul{display:none;position:absolute;left:0;top:100%;z-index:5;min-width:14rem;flex-direction:column;background:var(--paper);border:1px solid var(--line);padding:.3rem}
+nav li:hover>ul,nav li:focus-within>ul{display:flex}
+
+main{padding:2rem 0 1rem}
+main h1{font:700 2rem/1.2 "IBM Plex Sans",sans-serif;margin:0 0 1.5rem}
+.layout{max-width:46rem;padding:2rem 1.25rem}
+.back{display:inline-block;margin-bottom:1rem}
+
+/* project and post lists */
+.project{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);padding:1rem 1.25rem;margin-bottom:1rem}
+.project h2{margin:0 0 .3rem;font:600 1.3rem/1.3 "IBM Plex Sans",sans-serif}
+.project h2 a,.post h2 a{text-decoration:none}
+.project h2 a:hover,.post h2 a:hover{text-decoration:underline}
+.project p{margin:0;color:var(--muted);max-width:42rem}
+.post{background:var(--paper);border:1px solid var(--line);padding:1.1rem 1.25rem;margin-bottom:1rem}
+.post h2{margin:0 0 .4rem;font:600 1.35rem/1.3 "IBM Plex Sans",sans-serif}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.5rem;color:var(--muted);font-size:.9rem}
+.tag{background:var(--hover);color:var(--ink);padding:.05rem .55rem;border-radius:999px;text-decoration:none;font-size:.85rem}
+.tag:hover{background:var(--accent);color:var(--paper)}
+.post p{margin:0 0 .5rem;color:var(--muted)}
+.pager{color:var(--muted)}
+
+/* design document page */
+.doc{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);padding:1.5rem 1.5rem 1rem}
+.doc h1{margin:0 0 .4rem}
+.doc h2{margin:2rem 0 .6rem;font:600 1.4rem/1.3 "IBM Plex Sans",sans-serif;padding-top:.5rem;border-top:1px solid var(--line)}
+.lead{font-size:1.15rem;color:var(--muted);margin:0 0 1rem}
+.facts{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;margin:0 0 1rem;color:var(--muted);font-size:.95rem}
+.facts b{color:var(--ink)}
+.toc{columns:2;column-gap:2rem;padding-left:1.2rem}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:30rem}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--line)}
+th{background:var(--hover);font-weight:600}
+td:first-child{white-space:nowrap;font-weight:600}
+figure{margin:1rem 0}
+.placeholder{border:2px dashed var(--line);padding:2.5rem 1rem;text-align:center;color:var(--muted);background:var(--hover)}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+pre{background:#1e2328;color:#e8ecef;padding:1rem;overflow-x:auto;border-radius:.3rem;font:.9rem/1.5 ui-monospace,Consolas,monospace}
+code{font-family:ui-monospace,Consolas,monospace}
+ol li,ul li{margin-bottom:.4rem}
+.pass{color:#1a7f37;font-weight:600}
+.plan{color:var(--muted);font-weight:600}
+.pair-note{background:var(--hover);padding:.5rem .8rem;border-left:3px solid var(--accent);margin:.5rem 0 1rem;font-size:.95rem}
+
+footer{border-top:1px solid var(--line);margin-top:2rem;padding:1.25rem 0 2.5rem;color:var(--muted);font-size:.95rem}
+footer ul{list-style:none;margin:0 0 .75rem;padding:0;display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
+footer p{margin:0}
+
+@media (max-width:40rem){
+  nav li ul{position:static;border:0;padding:0 0 0 1rem}
+  .doc{padding:1rem}
+  .toc{columns:1}
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">Ω</div>
+      <h1>Your Name's Electronics Notebook</h1>
+    </div>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../projects.html" aria-current="page">Projects</a>
+          <ul>
+            <li><a href="index.html">ESP32 Weather Station</a></li>
+          </ul>
+        </li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a class="back" href="../../projects.html">&larr; All projects</a>
+  <article class="doc">
+    <h1>ESP32 Weather Station: Design Document</h1>
+    <p class="lead">A battery-powered outdoor weather station that measures temperature, humidity and pressure and reports them over Wi-Fi.</p>
+    <div class="facts">
+      <span><b>Document:</b> WS-DOC-001</span>
+      <span><b>Version:</b> 0.1 (draft)</span>
+      <span><b>Author:</b> Your Name</span>
+      <span><b>Date:</b> 2 October 2026</span>
+      <span><b>Hardware:</b> Rev A</span>
+    </div>
+    <ol class="toc">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#req">Requirements</a></li>
+      <li><a href="#design">Design</a></li>
+      <li><a href="#build">Build record</a></li>
+      <li><a href="#verify">Verification summary</a></li>
+      <li><a href="#open">Open issues and revisions</a></li>
+    </ol>
+
+    <h2 id="overview">1. Overview</h2>
+    <p><b>Purpose.</b> Provide a low-cost outdoor weather station that runs for a year on one battery and sends readings to a home server.</p>
+    <p><b>In scope.</b> Sensor, microcontroller, power supply, firmware and enclosure.</p>
+    <p><b>Out of scope.</b> The server, dashboard and mounting hardware.</p>
+    <figure>
+      <div class="placeholder">Photo of the finished project goes here</div>
+      <figcaption>The finished unit, Rev A.</figcaption>
+    </figure>
+
+    <h2 id="req">2. Requirements</h2>
+    <p>Priority: <b>M</b> = must have, <b>S</b> = should have. Status shows whether the current design meets the requirement.</p>
+
+    <h3>2.1 Functional</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Pri.</th><th>Status</th></tr></thead>
+      <tr><td>FR-01</td><td>The unit shall measure temperature, relative humidity and air pressure.</td><td>M</td><td class="pass">Met</td></tr>
+      <tr><td>FR-02</td><td>The unit shall send a reading to the server every 10 minutes over Wi-Fi.</td><td>M</td><td class="pass">Met</td></tr>
+      <tr><td>FR-03</td><td>The unit shall retry and then sleep if Wi-Fi is unavailable.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>FR-04</td><td>The unit shall report its battery voltage with each reading.</td><td>S</td><td class="plan">Open</td></tr>
+    </table></div>
+
+    <h3>2.2 Performance</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Pri.</th><th>Status</th></tr></thead>
+      <tr><td>PR-01</td><td>Temperature range -20 to +50 &deg;C, accuracy &plusmn;0.5 &deg;C.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>PR-02</td><td>Relative humidity accuracy &plusmn;3 %.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>PR-03</td><td>Pressure accuracy &plusmn;1 hPa.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>PR-04</td><td>Battery life of at least 12 months on a 3000 mAh cell (average current below 0.34 mA).</td><td>M</td><td class="plan">Open</td></tr>
+    </table></div>
+
+    <h3>2.3 Environmental and mechanical</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Pri.</th><th>Status</th></tr></thead>
+      <tr><td>ER-01</td><td>The unit shall operate outdoors at -20 to +50 &deg;C.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>ER-02</td><td>The enclosure shall protect against rain (IP54 or better) while venting the sensor.</td><td>M</td><td class="plan">Open</td></tr>
+      <tr><td>ER-03</td><td>The battery shall be rechargeable over USB without opening the enclosure.</td><td>S</td><td class="plan">Open</td></tr>
+    </table></div>
+
+    <h3>2.4 Constraints</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>ID</th><th>Requirement</th><th>Pri.</th><th>Status</th></tr></thead>
+      <tr><td>CR-01</td><td>Bill of materials shall cost under &pound;25.</td><td>M</td><td class="pass">Met</td></tr>
+      <tr><td>CR-02</td><td>All parts shall be commonly available, with no custom PCB in Rev A.</td><td>S</td><td class="pass">Met</td></tr>
+    </table></div>
+
+    <h2 id="design">3. Design</h2>
+    <h3>3.1 Architecture</h3>
+    <figure>
+      <div class="placeholder">Block diagram goes here: battery, charger, regulator, ESP32, BME280, Wi-Fi link</div>
+      <figcaption>System block diagram.</figcaption>
+    </figure>
+    <div class="scroll"><table>
+      <thead><tr><th>Block</th><th>Implementation</th><th>Addresses</th></tr></thead>
+      <tr><td>Power</td><td>18650 cell, TP4056 charger module, 3.3 V low-dropout regulator</td><td>PR-04, ER-03</td></tr>
+      <tr><td>Controller</td><td>ESP32 development board with Wi-Fi and deep sleep</td><td>FR-02, FR-03, PR-04</td></tr>
+      <tr><td>Sensor</td><td>BME280 module on the I2C bus</td><td>FR-01, PR-01 to PR-03</td></tr>
+      <tr><td>Enclosure</td><td>Vented, weatherproof housing with a radiation shield</td><td>ER-01, ER-02</td></tr>
+    </table></div>
+
+    <h3>3.2 Hardware</h3>
+    <figure>
+      <div class="placeholder">Schematic goes here (SVG or PNG)</div>
+      <figcaption>Schematic, Rev A.</figcaption>
+    </figure>
+    <div class="scroll"><table>
+      <thead><tr><th>Signal</th><th>ESP32 pin</th><th>Connected to</th></tr></thead>
+      <tr><td>SDA</td><td>GPIO 21</td><td>BME280 SDA (address 0x76)</td></tr>
+      <tr><td>SCL</td><td>GPIO 22</td><td>BME280 SCL</td></tr>
+      <tr><td>VBAT sense</td><td>GPIO 34</td><td>Battery through a 1:2 divider</td></tr>
+    </table></div>
+
+    <h3>3.3 Firmware</h3>
+    <p>Each cycle runs: wake, read sensor, read battery voltage, connect to Wi-Fi, send, then deep sleep for 10 minutes.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Module</th><th>Responsibility</th></tr></thead>
+      <tr><td>sensor</td><td>Read the BME280 and return values in engineering units</td></tr>
+      <tr><td>net</td><td>Connect to Wi-Fi, send a reading, retry on failure with a timeout</td></tr>
+      <tr><td>power</td><td>Measure battery voltage and enter deep sleep</td></tr>
+    </table></div>
+
+    <h3>3.4 Power budget</h3>
+    <p>Target average current is below 0.34 mA (PR-04). The first estimate fails, so the design uses a faster Wi-Fi connection.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>State</th><th>Current</th><th>Time per cycle</th><th>Charge per cycle</th></tr></thead>
+      <tr><td>Active (first estimate)</td><td>120 mA</td><td>3.0 s</td><td>360 mAs</td></tr>
+      <tr><td>Deep sleep</td><td>10 &micro;A</td><td>597 s</td><td>6 mAs</td></tr>
+      <tr><td>Average, first estimate</td><td colspan="3">366 mAs / 600 s = 0.61 mA (does not meet PR-04)</td></tr>
+      <tr><td>Active (revised)</td><td>80 mA</td><td>0.5 s</td><td>40 mAs</td></tr>
+      <tr><td>Average, revised</td><td colspan="3">46 mAs / 600 s = 0.077 mA (meets PR-04)</td></tr>
+    </table></div>
+
+    <h3>3.5 Design decisions</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Decision</th><th>Alternatives</th><th>Reason</th></tr></thead>
+      <tr><td>BME280 sensor</td><td>DHT22, SHT31</td><td>Measures all three quantities, low sleep current, cheap</td></tr>
+      <tr><td>ESP32 with deep sleep</td><td>ESP8266, LoRa node</td><td>Built-in Wi-Fi and a good sleep mode, no gateway needed</td></tr>
+      <tr><td>Static IP and stored channel</td><td>DHCP each wake</td><td>Cuts Wi-Fi connect time and so the active charge</td></tr>
+    </table></div>
+
+    <h2 id="build">4. Build record</h2>
+    <div class="scroll"><table>
+      <tr><th>Hardware revision</th><td>Rev A, perfboard</td></tr>
+      <tr><th>Firmware version</th><td>v0.1.0, <a href="#">source on GitHub</a></td></tr>
+      <tr><th>Bill of materials</th><td><a href="#">BOM (CSV)</a>, total cost &pound;20</td></tr>
+      <tr><th>Deviations</th><td>Record any changes from the design above.</td></tr>
+    </table></div>
+
+    <h2 id="verify">5. Verification summary</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Requirement</th><th>Method</th><th>Result</th></tr></thead>
+      <tr><td>FR-01, FR-02</td><td>Bench test and 24 hour log</td><td class="pass">Pass</td></tr>
+      <tr><td>PR-01 to PR-03</td><td>Compare with a reference instrument</td><td class="plan">Planned</td></tr>
+      <tr><td>PR-04</td><td>Measure average current over a full cycle</td><td class="plan">Planned</td></tr>
+      <tr><td>ER-01, ER-02</td><td>Cold soak and spray test</td><td class="plan">Planned</td></tr>
+      <tr><td>CR-01, CR-02</td><td>Inspection of the bill of materials</td><td class="pass">Pass</td></tr>
+    </table></div>
+
+    <h2 id="open">6. Open issues and revisions</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Date</th><th>Item</th><th>Status</th></tr></thead>
+      <tr><td>02.10.2026</td><td>Implement static IP to reduce Wi-Fi connect time (PR-04)</td><td class="plan">Open</td></tr>
+      <tr><td>02.10.2026</td><td>Add retry logic for FR-03</td><td class="plan">Open</td></tr>
+      <tr><td>02.10.2026</td><td>Version 0.1 created</td><td class="pass">Done</td></tr>
+    </table></div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <ul>
+      <li><a href="../../contact.html">Contact</a></li>
+      <li><a href="../../disclaimer.html">Disclaimer</a></li>
+      <li><a href="../../legal.html">Legal notice</a></li>
+    </ul>
+    <p>Last change: 02.10.2026 &nbsp; &copy; 2026 Your Name</p>
+  </div>
+</footer>
+</body>
+</html>
