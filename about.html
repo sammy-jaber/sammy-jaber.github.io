@@ -3,25 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About | Your Name</title>
+<title>About | Sammy Jaber</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* Site style: white page, Poppins text, Space Mono headings, coral links, teal accents */
-:root{--ink:#333;--coral:#ff5e5b;--teal:rgba(28,232,181,.6);--teal-soft:rgba(28,232,181,.14);--line:#e3e3e3;--muted:#666}
+/* Site style: white page, Poppins text, Space Mono headings, orange links and accents */
+:root {
+  --ink: #333;
+  --teal: #F97417;
+  --teal-soft: rgba(249, 116, 23, 0.12); /* Soft orange tint for table headers & callouts */
+  --line: #e3e3e3;
+  --muted: #666;
+}
 *{box-sizing:border-box}
 html{overflow-y:scroll}
-body{margin:0;background:#fff;color:var(--ink);font:1rem/1.7 "Poppins",system-ui,sans-serif}
+body{margin:0;background-color:#f1f2f3;background-image:linear-gradient(rgba(60,60,60,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.16) 1px,transparent 1px),linear-gradient(rgba(60,60,60,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.09) 1px,transparent 1px),linear-gradient(rgba(60,60,60,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.05) 1px,transparent 1px);background-size:100px 100px,100px 100px,50px 50px,50px 50px,10px 10px,10px 10px;color:var(--ink);font:1rem/1.7 "Poppins",system-ui,sans-serif}
 .wrap{max-width:52rem;margin:0 auto;padding:0 1.25rem}
-a{color:var(--coral)}
+a{color:var(--teal)}
 a:hover{color:var(--ink)}
-a:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 h1,h2,h3,h4{font-family:"Space Mono",monospace;font-weight:700;color:var(--ink);line-height:1.4}
 main h1,article h1{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:0 0 1rem}
 h2{font-size:1.25rem;margin:2rem 0 .6rem}
 h3{font-size:1.1rem;margin:1.5rem 0 .4rem}
+.about h2{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:2rem 0 1rem}
 
 /* header and menu */
 header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("images/header.jpg") center/cover no-repeat,#fff;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
@@ -30,10 +37,22 @@ header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),u
 .brand h1{display:inline;border:0;margin:0;font-size:1.5rem;letter-spacing:.2em}
 nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem .5rem}
 nav li{position:relative}
-nav a{display:block;padding:.25rem .7rem;background:#fff;color:var(--coral);font-weight:700;text-decoration:none}
-nav a:hover,nav a[aria-current]{background:var(--coral);color:#fff}
+nav a{display:block;padding:.25rem .7rem;background:#fff;color:var(--teal);font-weight:700;text-decoration:none}
+nav a:hover,nav a[aria-current]{background:var(--teal);color:#fff}
 nav li ul{display:none;position:absolute;left:50%;transform:translateX(-50%);top:100%;z-index:5;min-width:15rem;flex-direction:column;background:#fff;border:1px solid var(--line);padding:.3rem;text-align:left}
 nav li:hover>ul,nav li:focus-within>ul{display:flex}
+
+/* white panels keep the page background out from behind the text */
+main.wrap{background:#fff;padding:1.75rem 1.75rem 1rem;border:1px solid var(--line)}
+footer{background:#fff}
+
+/* cutting-mat ruler numbers along the top and left edges (filled in by the script at the end of the page) */
+.ruler{position:absolute;top:0;left:0;width:100%;height:0;pointer-events:none}
+.ruler span{position:absolute;font:700 11px/1 "Space Mono",monospace;color:rgba(60,60,60,.5)}
+@media (max-width:55rem),print{.ruler{display:none}}
+
+/* the About page is wider so the photo fits inside the panel */
+main.wrap{max-width:62rem}
 
 /* lists of projects and posts */
 main{padding-bottom:1rem}
@@ -41,11 +60,11 @@ main{padding-bottom:1rem}
 .project,.post{margin-bottom:2rem}
 .project h2,.post h2{margin:0 0 .3rem}
 .project h2 a,.post h2 a{color:var(--ink);text-decoration:none}
-.project h2 a:hover,.post h2 a:hover{color:var(--coral)}
+.project h2 a:hover,.post h2 a:hover{color:var(--teal)}
 .project p,.post p{margin:0 0 .4rem}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.5rem;color:var(--muted);font-size:.9rem}
 .tag{background:var(--teal);color:#fff;padding:0 .4rem;text-decoration:none;font-size:.85rem}
-.tag:hover{background:var(--coral);color:#fff}
+.tag:hover{background:var(--teal);color:#fff}
 .layout{max-width:46rem;padding:0 1.25rem}
 .pager{color:var(--muted)}
 
@@ -70,36 +89,66 @@ li{margin-bottom:.3rem}
 .pair-note{background:var(--teal-soft);padding:.5rem .8rem;border-left:4px solid var(--teal);margin:.5rem 0 1rem;font-size:.95rem}
 .about p{max-width:42rem}
 .links{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 0;padding:0;list-style:none}
-.links a{display:inline-block;padding:.3rem 1rem;border:2px solid var(--coral);text-decoration:none;font-weight:700}
-.links a:hover{background:var(--coral);color:#fff}
+.links a{display:inline-block;padding:.3rem 1rem;border:2px solid var(--teal);text-decoration:none;font-weight:700}
+.links a:hover{background:var(--teal);color:#fff}
+
+/* About me layout & round profile picture */
+.about-me-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.about-me-text {
+  flex: 0 0 440px;
+  max-width: 440px;
+}
+.profile-pic {
+  width: 450px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--teal);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
 
 footer{border-top:1px solid var(--line);margin-top:3rem;padding:1.25rem 0 2.5rem;color:var(--muted);font-size:.9rem;text-align:center}
 footer ul{list-style:none;margin:0 0 .75rem;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem 1.25rem}
 footer p{margin:0}
 
+/* Below 70rem the 450px photo no longer fits beside the text, so use a smaller one and let the text flex */
+@media (max-width:69.99rem){
+  .about-me-text{flex:1 1 auto;min-width:0;max-width:none}
+  .profile-pic{width:380px}
+}
+
 @media (max-width:40rem){
   .toc{columns:1}
   nav li ul{position:static;transform:none;border:0;padding:0 0 0 1rem}
+  .about-me-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .about-me-text{flex:none;width:100%}
 }
-
 </style>
 </head>
 <body>
+<div class="ruler" aria-hidden="true"></div>
 <header>
   <div class="wrap">
     <div class="brand">
       <div class="logo" aria-hidden="true">Ω</div>
-      <h1>Your Name's Electronics Notebook</h1>
+      <h1>Sammy Jaber's Workbench</h1>
     </div>
     <nav aria-label="Main">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html" aria-current="page">About</a></li>
-        <li><a href="projects.html">Projects</a>
-          <ul>
-            <li><a href="projects/esp32-weather/index.html">ESP32 Weather Station</a></li>
-          </ul>
-        </li>
+        <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -108,32 +157,20 @@ footer p{margin:0}
 
 <main class="wrap">
   <article class="about">
-    <h1>About</h1>
-    <p class="lead">Hi, I'm Your Name, an electronics hobbyist and engineer based in your town, country.</p>
-    <p>Write two or three sentences about yourself here: what you do, where you are, and which areas of electronics interest you most, such as microcontrollers, analogue design, radio or power supplies.</p>
-    <p>Add a line about your background, for example your job, studies or how you got started with electronics.</p>
-    <p>This site is where I document my projects and share what I learn. You can read the <a href="index.html">blog</a> for write-ups and tutorials, or browse the <a href="projects.html">projects</a> for full design documents.</p>
+    <h1>About this page</h1>
+    <p>Welcome to my workbench! Here, I document various electronics projects, experiments, and technical notes from my lab. It is a work in progress, and I regularly share new write-ups as current projects take shape and time permits.</p>
+    <p>My engineering focus spans a broad range of hardware disciplines—from precision analog circuits and high-efficiency power electronics to digital systems and RF electronics, with a strong interest in expanding further into microwave design. To bring these systems to life, I also work across the embedded stack, writing firmware and developing VHDL for FPGA-based processing. Whether building custom test and measurement gear or exploring core circuit theory, I enjoy taking complex designs from concept to practical implementation.</p>
+    <p>This page is handcrafted using Python, Pelican and Bootstrap. Published with GitHub Pages.</p>
 
-    <h2>Skills and experience</h2>
-
-    <h3>Hardware design</h3>
-    <p>Requirements capture, circuit design, component selection, prototyping, analogue and digital electronics, circuit simulation, and microcontrollers such as ESP32, STM32 and Arduino.</p>
-
-    <h3>PCB design</h3>
-    <p>Schematic capture and board layout in KiCad. Two-layer and four-layer boards.</p>
-
-    <h3>Firmware and software</h3>
-    <p>C, C++ and Python. Experience with Arduino, ESP32 and Raspberry Pi.</p>
-
-    <h3>Test and measurement</h3>
-    <p>Multimeters, oscilloscopes, bench power supplies and logic analysers.</p>
-
-    <h2>Get in touch</h2>
-    <ul class="links">
-      <li><a href="https://github.com/yourusername">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/yourname">LinkedIn</a></li>
-      <li><a href="mailto:you@example.com">Email</a></li>
-    </ul>
+    <h2>About me</h2>
+    <div class="about-me-container">
+      <div class="about-me-text">
+        <p>Born and raised in Norfolk—famous for its medieval history, broads, and coastline—I come from a mixed background, being half Iraqi.</p>
+        <p>My obsession with technical things started early. Like many engineers, my initial foray into electronics involved taking apart perfectly functional household gadgets just to see what made them tick. Over time, that curiosity evolved from destructive teardowns into actually building things that work. I hold a Master’s degree in Electronic and Electrical Engineering.</p>
+        <p>Today, I live in London and work as an Engineer in the aerospace and defense sector, designing high-speed digital systems, RF hardware, and embedded firmware.</p>
+      </div>
+      <img src="images/profile.png" alt="Sammy Jaber" class="profile-pic">
+    </div>
   </article>
 </main>
 
@@ -144,8 +181,24 @@ footer p{margin:0}
       <li><a href="disclaimer.html">Disclaimer</a></li>
       <li><a href="legal.html">Legal notice</a></li>
     </ul>
-    <p>Last change: 02.10.2026 &nbsp; &copy; 2026 Your Name</p>
+    <p>Last change: 02.10.2026 &copy; 2026 Sammy Jaber</p>
   </div>
 </footer>
+<script>
+/* Number the 100px grid lines like a cutting mat: 1, 2, 3... along the top and down the left side */
+(function(){
+  var r=document.querySelector('.ruler');
+  function add(n,x,y){var e=document.createElement('span');e.textContent=n;e.style.left=x+'px';e.style.top=y+'px';r.appendChild(e);}
+  function build(){
+    r.innerHTML='';
+    var w=document.documentElement.clientWidth,h=document.body.offsetHeight;
+    for(var i=1;i*100<w-20;i++){add(i,i*100+4,3);}
+    for(var j=1;j*100<h-20;j++){add(j,4,j*100+3);}
+  }
+  build();
+  window.addEventListener('load',build);
+  window.addEventListener('resize',build);
+})();
+</script>
 </body>
 </html>
