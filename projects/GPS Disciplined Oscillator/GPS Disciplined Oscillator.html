@@ -164,36 +164,45 @@ footer p{margin:0}
     <h1>GPS Disciplined Oscillator</h1>
     <!-- TODO: this is a template. Replace every placeholder below with your own project details. -->
     <p class="lead">While there are plenty of open-source GPS-Disciplined Oscillator (GPSDO) designs out there, I decided to build my own from scratch to integrate a few specific features and performance improvements. At its core, the project uses a GNSS receiver to discipline a 10 MHz Oven-Controlled Crystal Oscillator (OCXO) for exceptional long-term frequency stability. Rather than relying on a raw timing pulse directly from the GPS module, the unit generates its own Pulse-Per-Second (PPS) output derived directly from the clean 10 MHz OCXO signal, phase-aligned to the GNSS time scale via an internal divider.
-
-To safely feed multiple pieces of test gear without introducing ground loops or cross-talk, the unit features three galvanically isolated 50 Ω pure sine wave outputs for the 10 MHz reference clock. For timing applications, it also provides a 5 V TTL-compatible 50 Ω PPS output. An integrated 3.3 V bias tee on the RF input allows direct compatibility with standard, low-cost active GPS antennas, and the entire system is designed for autonomous, 24/7 continuous operation powered by a simple 12 V DC supply.</p>
-
+                    To safely feed multiple pieces of test gear without introducing ground loops or cross-talk, the unit features three galvanically isolated 50 Ω pure sine wave outputs for the 10 MHz reference clock. For timing applications, it also provides a 5 V TTL-compatible 50 Ω PPS output. An integrated 3.3 V bias tee on the RF input allows direct compatibility with standard, low-cost active GPS antennas, and the entire system is designed for autonomous, 24/7 continuous operation powered by a simple 12 V DC supply.</p>
+      
     <p class="lead">Like most GPSDOs, this project will discipline an Oven-Controlled Crystal Oscillator (OCXO) to provide a stable and accruate reference frequency of 10MHz, but it also provides a pulse-per-second (PPS) signal that is aligned with the GNSS time scale, that is dervived from the internal 10MHz OCXO.</p>
-
+      
     <p class="lead">The unit features three galvanically isolated 50&Omega; pure sine wave 10MHz outputs, and a 5V TTL compatible PPS output, again with a 50&Omega; souce impedance. It can be used with an inexpensive active GPS antenna (a supply voltage of 3.3V is provided at the antenna input).</p>
-
+      
     <p class="lead">It is designed to run permanently and autonomously from a 12V power brick</p>
 
-    <h2>High-Level Requirements</h2>
+    <h2>System Requirements</h2>
     <p>To keep the project focused, establish clear goals, and prevent scope creep, I am outlining a set of core requirements: </p>
 
-    <!-- TODO: edit the rows below. To add a requirement, copy a whole <tr>...</tr> row and change the text. -->
+    <!-- TODO: the target values below are suggested starting points. Change them to match what you want to achieve. To add a requirement, copy a whole <tr>...</tr> row. -->
     <div class="scroll">
       <table>
         <thead>
-          <tr><th>ID</th><th>Requirement</th><th>Specification</th></tr>
+          <tr><th>ID</th><th>Category</th><th>Requirement</th></tr>
         </thead>
         <tbody>
-          <tr><td>REQ-01</td><td>Reference frequency</td><td>10 MHz, from an OCXO disciplined to GNSS</td></tr>
-          <tr><td>REQ-02</td><td>10 MHz outputs</td><td>Three galvanically isolated pure sine wave outputs, 50 &Omega; source impedance</td></tr>
-          <tr><td>REQ-03</td><td>PPS output</td><td>5 V TTL compatible, 50 &Omega; source impedance, aligned with the GNSS time scale and derived from the OCXO</td></tr>
-          <tr><td>REQ-04</td><td>Antenna input</td><td>Inexpensive active GPS antenna, with a 3.3 V supply provided at the input</td></tr>
-          <tr><td>REQ-05</td><td>Power supply</td><td>12 V external power brick</td></tr>
-          <tr><td>REQ-06</td><td>Operation</td><td>Runs permanently and autonomously</td></tr>
+          <tr><td>REQ-01</td><td>Interface</td><td>The system shall provide three galvanically isolated 10&nbsp;MHz pure sine wave outputs.</td></tr>
+          <tr><td>REQ-02</td><td>Interface</td><td>Each 10&nbsp;MHz output shall have a 50&nbsp;&Omega; source impedance and a level of +7&nbsp;dBm &plusmn;1&nbsp;dB into a 50&nbsp;&Omega; load.</td></tr>
+          <tr><td>REQ-03</td><td>Interface</td><td>The system shall provide a 1&nbsp;PPS output that is 5&nbsp;V TTL compatible with a 50&nbsp;&Omega; source impedance.</td></tr>
+          <tr><td>REQ-04</td><td>Interface</td><td>The system shall operate with an inexpensive active GNSS antenna and shall supply 3.3&nbsp;V at the antenna input.</td></tr>
+          <tr><td>REQ-05</td><td>Interface</td><td>The system shall operate from a 12&nbsp;V DC external power supply.</td></tr>
+          <tr><td>REQ-06</td><td>Function</td><td>The system shall derive the 1&nbsp;PPS signal from the internal 10&nbsp;MHz OCXO and align it to the GNSS time scale.</td></tr>
+          <tr><td>REQ-07</td><td>Function</td><td>The system shall run continuously and autonomously, and shall recover without user intervention after loss of power or of the GNSS signal.</td></tr>
+          <tr><td>REQ-08</td><td>Performance</td><td>When locked, the 10&nbsp;MHz output frequency shall be accurate to better than 1&nbsp;&times;&nbsp;10<sup>&minus;12</sup> averaged over 24&nbsp;hours.</td></tr>
+          <tr><td>REQ-09</td><td>Performance</td><td>When locked, the Allan deviation (ADEV) of the 10&nbsp;MHz output shall be less than 5&nbsp;&times;&nbsp;10<sup>&minus;12</sup> at &tau;&nbsp;=&nbsp;1&nbsp;s and less than 1&nbsp;&times;&nbsp;10<sup>&minus;12</sup> at &tau;&nbsp;=&nbsp;10&nbsp;000&nbsp;s.</td></tr>
+          <tr><td>REQ-10</td><td>Performance</td><td>The single-sideband phase noise of the 10&nbsp;MHz output shall be better than &minus;115&nbsp;dBc/Hz at 10&nbsp;Hz offset, &minus;135&nbsp;dBc/Hz at 100&nbsp;Hz offset and &minus;145&nbsp;dBc/Hz at 1&nbsp;kHz offset.</td></tr>
+          <tr><td>REQ-11</td><td>Performance</td><td>The harmonics of the 10&nbsp;MHz output shall be below &minus;35&nbsp;dBc and non-harmonic spurious signals below &minus;70&nbsp;dBc.</td></tr>
+          <tr><td>REQ-12</td><td>Performance</td><td>The isolation between any two 10&nbsp;MHz outputs shall be better than 70&nbsp;dB.</td></tr>
+          <tr><td>REQ-13</td><td>Performance</td><td>The 1&nbsp;PPS output shall have a 10 to 90&nbsp;% rise time of less than 10&nbsp;ns into a 50&nbsp;&Omega; load.</td></tr>
+          <tr><td>REQ-14</td><td>Performance</td><td>When locked, the 1&nbsp;PPS edge shall be aligned to the GNSS time scale to within &plusmn;50&nbsp;ns.</td></tr>
+          <tr><td>REQ-15</td><td>Performance</td><td>The system shall reach the locked state within 15&nbsp;minutes of power-on with a valid GNSS signal.</td></tr>
+          <tr><td>REQ-16</td><td>Performance</td><td>During loss of the GNSS signal, the 10&nbsp;MHz output shall stay within &plusmn;1&nbsp;&times;&nbsp;10<sup>&minus;9</sup> of its nominal frequency for at least 24&nbsp;hours (holdover).</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2>Conceptual Block Diagram</h2>
+    <h2>Design</h2>
     <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
     <h3>Key parts</h3>
     <ul>
@@ -202,12 +211,23 @@ To safely feed multiple pieces of test gear without introducing ground loops or 
       <li>Part or block three and why it was chosen</li>
     </ul>
 
-    <h2>Schematic and design data</h2>
-    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
+    <h2>Results</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Parameter</th><th>Target</th><th>Measured</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Frequency range</td><td>0.1 to 3 GHz</td><td>0.1 to 3 GHz</td></tr>
+          <tr><td>Dynamic range</td><td>60 dB</td><td>58 dB</td></tr>
+          <tr><td>Supply current</td><td>&lt; 20 mA</td><td>17 mA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pair-note">Use this callout for an important note, a caveat or a safety warning.</div>
 
-    <h2>Circuit Description</h2>
-    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
-
+    <h2>Lessons learned</h2>
+    <p>What worked, what did not, and what you would do differently next time.</p>
 
     <h2>Files and links</h2>
     <ul class="links">
