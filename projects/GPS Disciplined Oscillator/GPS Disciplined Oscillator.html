@@ -163,7 +163,9 @@ footer p{margin:0}
     <a class="back" href="/projects.html">&larr; All projects</a>
     <h1>GPS Disciplined Oscillator</h1>
     <!-- TODO: this is a template. Replace every placeholder below with your own project details. -->
-    <p class="lead">There are numerous GPS Disciplined Ocillator (GPSDO) projects and circuits online, yet I have decided to develop my own to implement some additonal features and to make a few improvements.</p>
+    <p class="lead">While there are plenty of open-source GPS-Disciplined Oscillator (GPSDO) designs out there, I decided to build my own from scratch to integrate a few specific features and performance improvements. At its core, the project uses a GNSS receiver to discipline a 10 MHz Oven-Controlled Crystal Oscillator (OCXO) for exceptional long-term frequency stability. Rather than relying on a raw timing pulse directly from the GPS module, the unit generates its own Pulse-Per-Second (PPS) output derived directly from the clean 10 MHz OCXO signal, phase-aligned to the GNSS time scale via an internal divider.
+
+To safely feed multiple pieces of test gear without introducing ground loops or cross-talk, the unit features three galvanically isolated 50 Ω pure sine wave outputs for the 10 MHz reference clock. For timing applications, it also provides a 5 V TTL-compatible 50 Ω PPS output. An integrated 3.3 V bias tee on the RF input allows direct compatibility with standard, low-cost active GPS antennas, and the entire system is designed for autonomous, 24/7 continuous operation powered by a simple 12 V DC supply.</p>
 
     <p class="lead">Like most GPSDOs, this project will discipline an Oven-Controlled Crystal Oscillator (OCXO) to provide a stable and accruate reference frequency of 10MHz, but it also provides a pulse-per-second (PPS) signal that is aligned with the GNSS time scale, that is dervived from the internal 10MHz OCXO.</p>
 
@@ -191,7 +193,7 @@ footer p{margin:0}
       </table>
     </div>
 
-    <h2>Design</h2>
+    <h2>Conceptual Block Diagram</h2>
     <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
     <h3>Key parts</h3>
     <ul>
@@ -200,23 +202,12 @@ footer p{margin:0}
       <li>Part or block three and why it was chosen</li>
     </ul>
 
-    <h2>Results</h2>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr><th>Parameter</th><th>Target</th><th>Measured</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Frequency range</td><td>0.1 to 3 GHz</td><td>0.1 to 3 GHz</td></tr>
-          <tr><td>Dynamic range</td><td>60 dB</td><td>58 dB</td></tr>
-          <tr><td>Supply current</td><td>&lt; 20 mA</td><td>17 mA</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="pair-note">Use this callout for an important note, a caveat or a safety warning.</div>
+    <h2>Schematic and design data</h2>
+    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
 
-    <h2>Lessons learned</h2>
-    <p>What worked, what did not, and what you would do differently next time.</p>
+    <h2>Circuit Description</h2>
+    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
+
 
     <h2>Files and links</h2>
     <ul class="links">
