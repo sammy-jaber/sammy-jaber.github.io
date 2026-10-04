@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RF Power Detector | Sammy Jaber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Site style: white page, Poppins text, Space Mono headings, orange links and accents */
+:root {
+  --ink: #333;
+  --teal: #F97417;
+  --teal-soft: rgba(249, 116, 23, 0.12); /* Soft orange tint for table headers & callouts */
+  --line: #e3e3e3;
+  --muted: #666;
+}
+*{box-sizing:border-box}
+html{overflow-y:scroll}
+body{margin:0;background-color:#f1f2f3;background-image:linear-gradient(rgba(60,60,60,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.16) 1px,transparent 1px),linear-gradient(rgba(60,60,60,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.09) 1px,transparent 1px),linear-gradient(rgba(60,60,60,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(60,60,60,.05) 1px,transparent 1px);background-size:100px 100px,100px 100px,50px 50px,50px 50px,10px 10px,10px 10px;color:var(--ink);font:1rem/1.7 "Poppins",system-ui,sans-serif}
+.wrap{max-width:52rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--teal)}
+a:hover{color:var(--ink)}
+a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
+h1,h2,h3,h4{font-family:"Space Mono",monospace;font-weight:700;color:var(--ink);line-height:1.4}
+main h1,article h1{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:0 0 1rem}
+h2{font-size:1.25rem;margin:2rem 0 .6rem}
+h3{font-size:1.1rem;margin:1.5rem 0 .4rem}
+.about h2{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:2rem 0 1rem}
+
+/* header and menu */
+header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("images/header.jpg") center/cover no-repeat,#fff;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
+.brand{display:block;padding:1rem 0 .5rem}
+.logo{display:none}
+.brand h1{display:inline;border:0;margin:0;font-size:1.5rem;letter-spacing:.2em}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem .5rem}
+nav li{position:relative}
+nav a{display:block;padding:.25rem .7rem;background:#fff;color:var(--teal);font-weight:700;text-decoration:none}
+nav a:hover,nav a[aria-current]{background:var(--teal);color:#fff}
+nav li ul{display:none;position:absolute;left:50%;transform:translateX(-50%);top:100%;z-index:5;min-width:15rem;flex-direction:column;background:#fff;border:1px solid var(--line);padding:.3rem;text-align:left}
+nav li:hover>ul,nav li:focus-within>ul{display:flex}
+
+/* white panels keep the page background out from behind the text */
+main.wrap{background:#fff;padding:1.75rem 1.75rem 1rem;border:1px solid var(--line)}
+footer{background:#fff}
+
+/* cutting-mat ruler numbers along the top and left edges (filled in by the script at the end of the page) */
+.ruler{position:absolute;top:0;left:0;width:100%;height:0;pointer-events:none}
+.ruler span{position:absolute;font:700 11px/1 "Space Mono",monospace;color:rgba(60,60,60,.5)}
+@media (max-width:55rem),print{.ruler{display:none}}
+
+/* lists of projects and posts */
+main{padding-bottom:1rem}
+.back{display:inline-block;margin-bottom:1rem}
+.project,.post{margin-bottom:2rem}
+.project{padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.project:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.project h2,.post h2{margin:0 0 .3rem}
+.project h2 a,.post h2 a{color:var(--ink);text-decoration:none}
+.project h2 a:hover,.post h2 a:hover{color:var(--teal)}
+.project p,.post p{margin:0 0 .4rem}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.5rem;color:var(--muted);font-size:.9rem}
+.tag{background:var(--teal);color:#fff;padding:0 .4rem;text-decoration:none;font-size:.85rem}
+.tag:hover{background:var(--teal);color:#fff}
+.layout{max-width:46rem;padding:0 1.25rem}
+.pager{color:var(--muted)}
+
+/* detail and about pages */
+.lead{font-size:1.1rem;color:var(--muted);margin:0 0 1rem}
+.facts{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;margin:0 0 1rem;color:var(--muted);font-size:.95rem}
+.facts b{color:var(--ink)}
+.toc{columns:2;column-gap:2rem;padding-left:1.2rem}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.95rem}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--teal-soft);font-weight:600}
+td:first-child{white-space:nowrap;font-weight:600}
+figure{margin:1rem 0}
+.placeholder{border:2px dashed #ccc;padding:2.5rem 1rem;text-align:center;color:var(--muted);background:#fafafa}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+pre{background:#333;color:#eee;padding:1rem;overflow-x:auto;font:.9rem/1.5 ui-monospace,Consolas,monospace}
+code{font-family:ui-monospace,Consolas,monospace}
+li{margin-bottom:.3rem}
+.pass{color:#1a7f37;font-weight:600}
+.plan{color:var(--muted);font-weight:600}
+.pair-note{background:var(--teal-soft);padding:.5rem .8rem;border-left:4px solid var(--teal);margin:.5rem 0 1rem;font-size:.95rem}
+.about p{max-width:42rem}
+.links{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 0;padding:0;list-style:none}
+.links a{display:inline-block;padding:.3rem 1rem;border:2px solid var(--teal);text-decoration:none;font-weight:700}
+.links a:hover{background:var(--teal);color:#fff}
+
+/* About me layout & round profile picture */
+.about-me-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.about-me-text {
+  flex: 0 0 440px;
+  max-width: 440px;
+}
+.profile-pic {
+  width: 450px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--teal);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+footer{border-top:1px solid var(--line);margin-top:3rem;padding:1.25rem 0 2.5rem;color:var(--muted);font-size:.9rem;text-align:center}
+footer ul{list-style:none;margin:0 0 .75rem;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem 1.25rem}
+footer p{margin:0}
+
+/* Wide screens: circle sits at the far right, extending into the page margin */
+@media (min-width:70rem){
+  .about-me-container{margin-right:-130px}
+}
+/* Mid-size screens: no room to extend, so use a slightly smaller photo and let the text flex */
+@media (max-width:69.99rem){
+  .about-me-text{flex:1 1 auto;min-width:0;max-width:none}
+  .profile-pic{width:380px}
+}
+
+@media (max-width:40rem){
+  .toc{columns:1}
+  nav li ul{position:static;transform:none;border:0;padding:0 0 0 1rem}
+  .about-me-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .about-me-text{flex:none;width:100%}
+}
+</style>
+</head>
+<body>
+<div class="ruler" aria-hidden="true"></div>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">Ω</div>
+      <h1>Sammy Jaber's Workbench</h1>
+    </div>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="about">
+    <a class="back" href="projects.html">&larr; All projects</a>
+    <h1>Project One: RF Power Detector</h1>
+    <!-- TODO: this is a template. Replace every placeholder below with your own project details. -->
+    <p class="lead">One or two sentences summing up what the project is and why it is useful.</p>
+
+    <div class="facts">
+      <span><b>Status:</b> Complete</span>
+      <span><b>Date:</b> Month 2026</span>
+      <span><b>Tools:</b> KiCad, VNA, spectrum analyser</span>
+    </div>
+
+    <figure>
+      <div class="placeholder">Photo or block diagram goes here</div>
+      <figcaption>Caption describing the photo or diagram.</figcaption>
+    </figure>
+
+    <h2>Overview</h2>
+    <p>Describe the goal of the project: what problem it solves, what the requirements were and what you set out to learn. A short paragraph is plenty.</p>
+
+    <h2>Design</h2>
+    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
+    <h3>Key parts</h3>
+    <ul>
+      <li>Part or block one and why it was chosen</li>
+      <li>Part or block two and why it was chosen</li>
+      <li>Part or block three and why it was chosen</li>
+    </ul>
+
+    <h2>Results</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Parameter</th><th>Target</th><th>Measured</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Frequency range</td><td>0.1 to 3 GHz</td><td>0.1 to 3 GHz</td></tr>
+          <tr><td>Dynamic range</td><td>60 dB</td><td>58 dB</td></tr>
+          <tr><td>Supply current</td><td>&lt; 20 mA</td><td>17 mA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pair-note">Use this callout for an important note, a caveat or a safety warning.</div>
+
+    <h2>Lessons learned</h2>
+    <p>What worked, what did not, and what you would do differently next time.</p>
+
+    <h2>Files and links</h2>
+    <ul class="links">
+      <li><a href="#">Schematic (PDF)</a></li>
+      <li><a href="#">Source code</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <ul>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="disclaimer.html">Disclaimer</a></li>
+      <li><a href="legal.html">Legal notice</a></li>
+    </ul>
+    <p>Last change: 03.10.2026 &copy; 2026 Sammy Jaber</p>
+  </div>
+</footer>
+<script>
+/* Number the 100px grid lines like a cutting mat: 1, 2, 3... along the top and down the left side */
+(function(){
+  var r=document.querySelector('.ruler');
+  function add(n,x,y){var e=document.createElement('span');e.textContent=n;e.style.left=x+'px';e.style.top=y+'px';r.appendChild(e);}
+  function build(){
+    r.innerHTML='';
+    var w=document.documentElement.clientWidth,h=document.body.offsetHeight;
+    for(var i=1;i*100<w-20;i++){add(i,i*100+4,3);}
+    for(var j=1;j*100<h-20;j++){add(j,4,j*100+3);}
+  }
+  build();
+  window.addEventListener('load',build);
+  window.addEventListener('resize',build);
+})();
+</script>
+</body>
+</html>
