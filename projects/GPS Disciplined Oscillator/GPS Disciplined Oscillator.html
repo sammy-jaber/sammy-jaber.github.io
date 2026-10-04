@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RF Power Detector | Sammy Jaber</title>
+<title>GPS Disciplined Oscillator | Sammy Jaber</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@ h3{font-size:1.1rem;margin:1.5rem 0 .4rem}
 .about h2{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:2rem 0 1rem}
 
 /* header and menu */
-header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("images/header.jpg") center/cover no-repeat,#fff;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
+header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("/images/header.jpg") center/cover no-repeat,#fff;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
 .brand{display:block;padding:1rem 0 .5rem}
 .logo{display:none}
 .brand h1{display:inline;border:0;margin:0;font-size:1.5rem;letter-spacing:.2em}
@@ -149,10 +149,10 @@ footer p{margin:0}
     </div>
     <nav aria-label="Main">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html" aria-current="page">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/projects.html" aria-current="page">Projects</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -160,24 +160,36 @@ footer p{margin:0}
 
 <main class="wrap">
   <article class="about">
-    <a class="back" href="projects.html">&larr; All projects</a>
-    <h1>Project One: RF Power Detector</h1>
+    <a class="back" href="/projects.html">&larr; All projects</a>
+    <h1>GPS Disciplined Oscillator</h1>
     <!-- TODO: this is a template. Replace every placeholder below with your own project details. -->
-    <p class="lead">One or two sentences summing up what the project is and why it is useful.</p>
+    <p class="lead">There are numerous GPS Disciplined Ocillator (GPSDO) projects and circuits online, yet I have decided to develop my own to implement some additonal features and to make a few improvements.</p>
 
-    <div class="facts">
-      <span><b>Status:</b> Complete</span>
-      <span><b>Date:</b> Month 2026</span>
-      <span><b>Tools:</b> KiCad, VNA, spectrum analyser</span>
+    <p class="lead">Like most GPSDOs, this project will discipline an Oven-Controlled Crystal Oscillator (OCXO) to provide a stable and accruate reference frequency of 10MHz, but it also provides a pulse-per-second (PPS) signal that is aligned with the GNSS time scale, that is dervived from the internal 10MHz OCXO.</p>
+
+    <p class="lead">The unit features three galvanically isolated 50&Omega; pure sine wave 10MHz outputs, and a 5V TTL compatible PPS output, again with a 50&Omega; souce impedance. It can be used with an inexpensive active GPS antenna (a supply voltage of 3.3V is provided at the antenna input).</p>
+
+    <p class="lead">It is designed to run permanently and autonomously from a 12V power brick</p>
+
+    <h2>High-Level Requirements</h2>
+    <p>To keep the project focused, establish clear goals, and prevent scope creep, I am outlining a set of core requirements: </p>
+
+    <!-- TODO: edit the rows below. To add a requirement, copy a whole <tr>...</tr> row and change the text. -->
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Requirement</th><th>Specification</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>REQ-01</td><td>Reference frequency</td><td>10 MHz, from an OCXO disciplined to GNSS</td></tr>
+          <tr><td>REQ-02</td><td>10 MHz outputs</td><td>Three galvanically isolated pure sine wave outputs, 50 &Omega; source impedance</td></tr>
+          <tr><td>REQ-03</td><td>PPS output</td><td>5 V TTL compatible, 50 &Omega; source impedance, aligned with the GNSS time scale and derived from the OCXO</td></tr>
+          <tr><td>REQ-04</td><td>Antenna input</td><td>Inexpensive active GPS antenna, with a 3.3 V supply provided at the input</td></tr>
+          <tr><td>REQ-05</td><td>Power supply</td><td>12 V external power brick</td></tr>
+          <tr><td>REQ-06</td><td>Operation</td><td>Runs permanently and autonomously</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <figure>
-      <div class="placeholder">Photo or block diagram goes here</div>
-      <figcaption>Caption describing the photo or diagram.</figcaption>
-    </figure>
-
-    <h2>Overview</h2>
-    <p>Describe the goal of the project: what problem it solves, what the requirements were and what you set out to learn. A short paragraph is plenty.</p>
 
     <h2>Design</h2>
     <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
@@ -217,9 +229,9 @@ footer p{margin:0}
 <footer>
   <div class="wrap">
     <ul>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="disclaimer.html">Disclaimer</a></li>
-      <li><a href="legal.html">Legal notice</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/disclaimer.html">Disclaimer</a></li>
+      <li><a href="/legal.html">Legal notice</a></li>
     </ul>
     <p>Last change: 03.10.2026 &copy; 2026 Sammy Jaber</p>
   </div>
