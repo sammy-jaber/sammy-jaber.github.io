@@ -86,7 +86,7 @@ li{margin-bottom:.3rem}
 .pass{color:#1a7f37;font-weight:600}
 .plan{color:var(--muted);font-weight:600}
 .pair-note{background:var(--teal-soft);padding:.5rem .8rem;border-left:4px solid var(--teal);margin:.5rem 0 1rem;font-size:.95rem}
-.about p{max-width:42rem}
+.about p{max-width:none}
 .links{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 0;padding:0;list-style:none}
 .links a{display:inline-block;padding:.3rem 1rem;border:2px solid var(--teal);text-decoration:none;font-weight:700}
 .links a:hover{background:var(--teal);color:#fff}
@@ -164,7 +164,8 @@ footer p{margin:0}
     <h1>GPS Disciplined Oscillator</h1>
     <!-- TODO: this is a template. Replace every placeholder below with your own project details. -->
     <p class="lead">While there are plenty of open-source GPS-Disciplined Oscillator (GPSDO) designs out there, I decided to build my own to integrate a few specific features and performance improvements. At its core, the project uses a GNSS receiver to discipline a 10 MHz Oven-Controlled Crystal Oscillator (OCXO) for exceptional long-term frequency stability. Rather than relying on a raw timing pulse directly from the GPS module, the unit generates its own Pulse-Per-Second (PPS) output derived directly from the clean 10 MHz OCXO signal, phase-aligned to the GNSS time scale via an internal divider.
-                    To safely feed multiple pieces of test gear without introducing ground loops or cross-talk, the unit features three galvanically isolated 50 Ω pure sine wave outputs for the 10 MHz reference clock. For timing applications, it also provides a 5 V TTL-compatible 50 Ω PPS output. An integrated 3.3 V bias tee on the RF input allows direct compatibility with standard, low-cost active GPS antennas, and the entire system is designed for autonomous, 24/7 continuous operation powered by a simple 12 V DC supply.</p>
+                    
+    <p class="lead">To safely feed multiple pieces of test gear without introducing ground loops or cross-talk, the unit features three galvanically isolated 50 Ω pure sine wave outputs for the 10 MHz reference clock. For timing applications, it also provides a 5 V TTL-compatible 50 Ω PPS output. An integrated 3.3 V bias tee on the RF input allows direct compatibility with standard, low-cost active GPS antennas, and the entire system is designed for autonomous, 24/7 continuous operation powered by a simple 12 V DC supply.</p>
       
     <p class="lead">Like most GPSDOs, this project will discipline an Oven-Controlled Crystal Oscillator (OCXO) to provide a stable and accruate reference frequency of 10MHz, but it also provides a pulse-per-second (PPS) signal that is aligned with the GNSS time scale, that is dervived from the internal 10MHz OCXO.</p>
       
