@@ -183,9 +183,9 @@ footer p{margin:0}
         </thead>
         <tbody>
           <tr><td>REQ-01</td><td>Interface</td><td>The system shall provide three galvanically isolated 10&nbsp;MHz pure sine wave outputs.</td></tr>
-          <tr><td>REQ-02</td><td>Interface</td><td>Each 10&nbsp;MHz output shall have a 50&nbsp;&Omega; source impedance and a level of +7&nbsp;dBm &plusmn;1&nbsp;dB into a 50&nbsp;&Omega; load.</td></tr>
+          <tr><td>REQ-02</td><td>Interface</td><td>Each 10&nbsp;MHz output shall have a 50&nbsp;&Omega; source impedance and a level of +10&nbsp;dBm &plusmn;1&nbsp;dB into a 50&nbsp;&Omega; load.</td></tr>
           <tr><td>REQ-03</td><td>Interface</td><td>The system shall provide a 1&nbsp;PPS output that is 5&nbsp;V TTL compatible with a 50&nbsp;&Omega; source impedance.</td></tr>
-          <tr><td>REQ-04</td><td>Interface</td><td>The system shall operate with an inexpensive active GNSS antenna and shall supply 3.3&nbsp;V at the antenna input.</td></tr>
+          <tr><td>REQ-04</td><td>Interface</td><td>The system shall be able to power an active GNSS antenna by providing a 3.3&nbsp;V supply at the antenna input.</td></tr>
           <tr><td>REQ-05</td><td>Interface</td><td>The system shall operate from a 12&nbsp;V DC external power supply.</td></tr>
           <tr><td>REQ-06</td><td>Function</td><td>The system shall derive the 1&nbsp;PPS signal from the internal 10&nbsp;MHz OCXO and align it to the GNSS time scale.</td></tr>
           <tr><td>REQ-07</td><td>Function</td><td>The system shall run continuously and autonomously, and shall recover without user intervention after loss of power or of the GNSS signal.</td></tr>
@@ -194,22 +194,24 @@ footer p{margin:0}
           <tr><td>REQ-10</td><td>Performance</td><td>The single-sideband phase noise of the 10&nbsp;MHz output shall be better than &minus;115&nbsp;dBc/Hz at 10&nbsp;Hz offset, &minus;135&nbsp;dBc/Hz at 100&nbsp;Hz offset and &minus;145&nbsp;dBc/Hz at 1&nbsp;kHz offset.</td></tr>
           <tr><td>REQ-11</td><td>Performance</td><td>The harmonics of the 10&nbsp;MHz output shall be below &minus;35&nbsp;dBc and non-harmonic spurious signals below &minus;70&nbsp;dBc.</td></tr>
           <tr><td>REQ-12</td><td>Performance</td><td>The isolation between any two 10&nbsp;MHz outputs shall be better than 70&nbsp;dB.</td></tr>
-          <tr><td>REQ-13</td><td>Performance</td><td>The 1&nbsp;PPS output shall have a 10 to 90&nbsp;% rise time of less than 10&nbsp;ns into a 50&nbsp;&Omega; load.</td></tr>
+          <tr><td>REQ-13</td><td>Performance</td><td>The 1&nbsp;PPS output shall have a 10 to 90&nbsp;% rise time and a 90 to 10&nbsp;% fall time of less than 1&nbsp;ns into a 50&nbsp;&Omega; load.</td></tr>
           <tr><td>REQ-14</td><td>Performance</td><td>When locked, the 1&nbsp;PPS edge shall be aligned to the GNSS time scale to within &plusmn;50&nbsp;ns.</td></tr>
           <tr><td>REQ-15</td><td>Performance</td><td>The system shall reach the locked state within 15&nbsp;minutes of power-on with a valid GNSS signal.</td></tr>
           <tr><td>REQ-16</td><td>Performance</td><td>During loss of the GNSS signal, the 10&nbsp;MHz output shall stay within &plusmn;1&nbsp;&times;&nbsp;10<sup>&minus;9</sup> of its nominal frequency for at least 24&nbsp;hours (holdover).</td></tr>
+          <tr><td>REQ-17</td><td>Mechanical</td><td>The GNSS antenna input shall use an SMA connector.</td></tr>
+          <tr><td>REQ-18</td><td>Mechanical</td><td>Each 10&nbsp;MHz output shall use a BNC connector.</td></tr>
+          <tr><td>REQ-19</td><td>Mechanical</td><td>The 1&nbsp;PPS output shall use a BNC connector.</td></tr>
+          <tr><td>REQ-20</td><td>Mechanical</td><td>The system shall fit inside an aluminium extrusion enclosure.</td></tr>
         </tbody>
       </table>
     </div>
-
+    
+    <h2>Conceptual Block Diagram</h2>
+    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
+    
     <h2>Design</h2>
     <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
-    <h3>Key parts</h3>
-    <ul>
-      <li>Part or block one and why it was chosen</li>
-      <li>Part or block two and why it was chosen</li>
-      <li>Part or block three and why it was chosen</li>
-    </ul>
+
 
     <h2>Results</h2>
     <div class="scroll">
