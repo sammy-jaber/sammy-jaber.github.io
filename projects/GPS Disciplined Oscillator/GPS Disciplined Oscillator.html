@@ -202,8 +202,31 @@ footer p{margin:0}
     </div>
     
     <h2>Conceptual Block Diagram</h2>
-    <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
+    <figure>
+      <div id="diagram" class="scroll">Loading diagram...</div>
+      <figcaption>Top-level block diagram of the GPSDO.</figcaption>
+    </figure>
+    <p>Describe the signal flow here: the GNSS 1&nbsp;PPS and the local 1&nbsp;PPS go to the TDC, the FPGA reads the interval and steers the OCXO through the DAC, and so on.</p>
     
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: { fontFamily: 'Poppins, system-ui, sans-serif' }
+  });
+
+  const el = document.getElementById('diagram');
+  try {
+    const res = await fetch('/projects/GPS%20Disciplined%20Oscillator/diagrams/block-diagram.mmd');
+    if (!res.ok) throw new Error(res.status);
+    const { svg } = await mermaid.render('block-diagram', await res.text());
+    el.innerHTML = svg;
+  } catch (err) {
+    el.textContent = 'Could not load diagram: ' + err;
+  }
+</script>
+
     <h2>Circuit Design</h2>
     <p>Explain the main design decisions, such as the circuit topology, component choices, PCB layout and any firmware or VHDL involved. Add more paragraphs or sub-headings as needed.</p>
 
