@@ -1,0 +1,49 @@
+flowchart TB
+    PWR[Power<br/>Supply]:::power
+    ANT[GPS Antenna<br/>Connector]:::rf --> UBX[u-blox<br/>GNSS Module]:::rf
+    TDC[Time-to-Digital<br/>Converter]:::tdc
+    DAC[Precision DAC]:::clk
+    OCXO[OCXO<br/>10 MHz]:::clk
+    FPGA[FPGA<br/>Divider + Control Loop]
+    AMP[Tuned Amplifier<br/>10 MHz]:::clk
+    IF[USB + LEDs]
+
+    UBX -->|1 PPS - GPS| TDC
+    FPGA -->|1 PPS - local| TDC
+    TDC -->|SPI: time interval| FPGA
+    UBX <-->|UART| FPGA
+    OCXO -->|10 MHz| FPGA
+    OCXO -->|10 MHz ref clock| TDC
+    FPGA -->|SPI| DAC
+    DAC -->|EFC voltage| OCXO
+    OCXO -->|10 MHz| AMP
+    FPGA <--> IF
+
+    subgraph CH1[Output 1]
+        FLT1[Filter]:::clk --> ISO1[Galvanic<br/>Isolation]:::iso --> O1[10 MHz Out 1<br/>SMA]:::clk
+    end
+    subgraph CH2[Output 2]
+        FLT2[Filter]:::clk --> ISO2[Galvanic<br/>Isolation]:::iso --> O2[10 MHz Out 2<br/>SMA]:::clk
+    end
+    subgraph CH3[Output 3]
+        FLT3[Filter]:::clk --> ISO3[Galvanic<br/>Isolation]:::iso --> O3[10 MHz Out 3<br/>SMA]:::clk
+    end
+    subgraph CH4[Output 4]
+        TTL[TTL Driver]:::ttl --> PROT[Series R<br/>+ ESD Protection]:::ttl --> O4[1 PPS Out<br/>SMA]:::ttl
+    end
+
+    AMP --> FLT1
+    AMP --> FLT2
+    AMP --> FLT3
+    FPGA -->|1 PPS| TTL
+    AMP ~~~ TTL
+
+    PWR ~~~ ANT
+    IF ~~~ DAC
+
+    classDef power fill:#fde8e8,stroke:#c0392b
+    classDef rf fill:#e8f0fd,stroke:#2c6fbb
+    classDef clk fill:#e8fdea,stroke:#2e8b3d
+    classDef iso fill:#fff4d6,stroke:#d68910
+    classDef ttl fill:#f1e8fd,stroke:#7d3cb5
+    classDef tdc fill:#e8fafd,stroke:#1a8a9a
