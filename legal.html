@@ -31,7 +31,7 @@ h3{font-size:1.1rem;margin:1.5rem 0 .4rem}
 .about h2{font-size:22px;display:table;border-bottom:.5rem solid var(--teal);margin:2rem 0 1rem}
 
 /* header and menu */
-header{background:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url("images/header.jpg") center/cover no-repeat,#fff;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
+header{background:transparent;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
 .brand{display:block;padding:1rem 0 .5rem}
 .logo{display:none}
 .brand h1{display:inline;border:0;margin:0;font-size:1.5rem;letter-spacing:.2em}
@@ -44,7 +44,6 @@ nav li:hover>ul,nav li:focus-within>ul{display:flex}
 
 /* white panels keep the page background out from behind the text */
 main.wrap{background:#fff;padding:1.75rem 1.75rem 1rem;border:1px solid var(--line)}
-footer{background:#fff}
 
 /* cutting-mat ruler numbers along the top and left edges (filled in by the script at the end of the page) */
 .ruler{position:absolute;top:0;left:0;width:100%;height:0;pointer-events:none}
@@ -112,7 +111,7 @@ li{margin-bottom:.3rem}
   flex-shrink: 0;
 }
 
-footer{border-top:1px solid var(--line);margin-top:3rem;padding:1.25rem 0 2.5rem;color:var(--muted);font-size:.9rem;text-align:center}
+footer{margin-top:3rem;padding:1.25rem 0 2.5rem;color:var(--muted);font-size:.9rem;text-align:center}
 footer ul{list-style:none;margin:0 0 .75rem;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem 1.25rem}
 footer p{margin:0}
 
@@ -198,7 +197,7 @@ footer p{margin:0}
   function add(n,x,y){var e=document.createElement('span');e.textContent=n;e.style.left=x+'px';e.style.top=y+'px';r.appendChild(e);}
   function build(){
     r.innerHTML='';
-    var w=document.documentElement.clientWidth,h=document.body.offsetHeight;
+    var w=document.documentElement.clientWidth,h=Math.max(document.body.offsetHeight,window.innerHeight);
     for(var i=1;i*100<w-20;i++){add(i,i*100+4,3);}
     for(var j=1;j*100<h-20;j++){add(j,4,j*100+3);}
   }
