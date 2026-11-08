@@ -34,31 +34,13 @@ h3{font-size:1.1rem;margin:1.5rem 0 .4rem}
 header{background:transparent;padding:1.5rem 0 .5rem;margin-bottom:2.5rem;text-align:center}
 .brand{display:block;padding:1rem 0 .5rem}
 .logo{display:none}
-.brand h1{display:inline-block;background:var(--teal);color:#fff;border:2px solid var(--teal);padding:.3rem .8rem .3rem 1rem;margin:0;font-size:1.5rem;letter-spacing:.2em}
+.brand h1{display:inline;border:0;margin:0;font-size:1.5rem;letter-spacing:.2em}
 nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem .5rem}
 nav li{position:relative}
 nav a{display:block;padding:.25rem .7rem;background:#fff;color:var(--teal);font-weight:700;text-decoration:none}
 nav a:hover,nav a[aria-current]{background:var(--teal);color:#fff}
 nav li ul{display:none;position:absolute;left:50%;transform:translateX(-50%);top:100%;z-index:5;min-width:15rem;flex-direction:column;background:#fff;border:1px solid var(--line);padding:.3rem;text-align:left}
 nav li:hover>ul,nav li:focus-within>ul{display:flex}
-
-/* header snapped to the grid: title box and nav buttons sit on the 10px grid lines at any window width */
-header{padding:40px 0 0;height:180px;margin-bottom:0;text-align:left}
-header .wrap{max-width:none;padding:0}
-.brand{padding:0;margin-left:calc((100% - 480px) / 2);margin-left:round(down,calc((100% - 480px) / 2),10px)}
-.brand h1{display:flex;align-items:center;justify-content:center;width:480px;height:50px;padding:0 0 0 .2em;border:0;font-size:1.5rem;line-height:1}
-nav{margin-top:10px}
-nav > ul{flex-wrap:nowrap;justify-content:flex-start;gap:0 20px;margin-left:calc((100% - 460px) / 2);margin-left:round(down,calc((100% - 460px) / 2),10px)}
-nav li{margin:0}
-nav a{width:100px;height:40px;line-height:40px;padding:0;text-align:center}
-/* small windows: go back to the flexible layout */
-@media (max-width:32rem){
-  header{height:auto;padding-bottom:1rem;margin-bottom:2rem;text-align:center}
-  .brand{margin:0 auto}
-  .brand h1{display:inline-block;width:auto;height:auto;padding:.3rem .8rem .3rem 1rem;font-size:1.1rem}
-  nav > ul{margin:0;justify-content:center;flex-wrap:wrap;gap:.25rem .5rem}
-  nav a{width:auto;height:auto;line-height:inherit;padding:.25rem .7rem}
-}
 
 /* white panels keep the page background out from behind the text */
 main.wrap{background:#fff;padding:1.75rem 1.75rem 1rem;border:1px solid var(--line)}
