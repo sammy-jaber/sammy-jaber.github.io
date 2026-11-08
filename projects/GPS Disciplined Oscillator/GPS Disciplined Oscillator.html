@@ -90,6 +90,7 @@ li{margin-bottom:.3rem}
 .links{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 0;padding:0;list-style:none}
 .links a{display:inline-block;padding:.3rem 1rem;border:2px solid var(--teal);text-decoration:none;font-weight:700}
 .links a:hover{background:var(--teal);color:#fff}
+.links a[aria-disabled]{opacity:.5;cursor:default;pointer-events:none}
 
 /* About me layout & round profile picture */
 .about-me-container {
@@ -210,23 +211,23 @@ footer p{margin:0}
       <figcaption>Top-level block diagram of the GPSDO.</figcaption>
     </figure>
 
-    <h3>Power and connections</h3>
-    <p>The unit runs from a 12&nbsp;V DC jack. A switching regulator (SMPS) does the heavy lifting of converting that down efficiently, and a linear regulator follows it to give a quiet supply for the sensitive analogue and timing circuits. There are two other inputs: an SMA connector for the GPS antenna, which also supplies the antenna's 3.3&nbsp;V bias, and a USB-C port, which connects to a USB Blaster for programming and debugging the FPGA.</p>
+    <h3>Power and interfaces</h3>
+    <p>The unit is powered from a 12&nbsp;V DC jack. A switch-mode power supply (SMPS) performs the initial, high-efficiency voltage conversion, and a linear regulator follows it to provide a low-noise supply for the sensitive analogue and timing circuits. Alongside the power jack, there is an SMA connector for the GPS antenna, which also supplies the antenna's 3.3&nbsp;V bias, and a USB-C port, which connects to a USB-to-serial and JTAG bridge for programming the FPGA and providing a user interface. On the output side, there are four BNC connectors: three for the galvanically isolated 10&nbsp;MHz sine wave outputs and one for the 1&nbsp;PPS output.</p>
 
     <h3>The control loop</h3>
-    <p>The FPGA is the brain of the system. It takes the 10&nbsp;MHz from the OCXO and divides it down to produce its own 1 pulse-per-second (PPS) signal. The GNSS module produces a 1&nbsp;PPS of its own, locked to GPS time. At start-up, the divider is aligned to the GPS pulse. From then on, if the OCXO ran at exactly 10&nbsp;MHz, the gap between the two pulses would stay constant. In practice the OCXO drifts, and any change in that gap is exactly the information the loop needs.</p>
+    <p>The FPGA forms the core of the system. It divides the 10&nbsp;MHz OCXO signal down to produce a local 1 pulse-per-second (PPS) signal. The GNSS module produces its own 1&nbsp;PPS, referenced to GPS time. At start-up, the divider is aligned to the GPS pulse. Thereafter, if the OCXO ran at exactly 10&nbsp;MHz, the interval between the two pulses would remain constant. In practice the OCXO drifts, and any change in that interval provides the error signal for the control loop.</p>
 
-    <p>A Time-to-Digital Converter (TDC) measures the interval between the two pulses with very fine resolution, far finer than the FPGA could manage by counting clock cycles alone. It reports each measurement to the FPGA over SPI. The FPGA filters the measurements, works out how far the local pulse has drifted, and sends a correction to a precision DAC. The DAC produces a control voltage, called the EFC (electronic frequency control) voltage, which gently pulls the OCXO's frequency back towards the right value.</p>
+    <p>A Time-to-Digital Converter (TDC) measures the interval between the two pulses with a resolution far finer than the FPGA could achieve by counting clock cycles alone. It reports each measurement to the FPGA over SPI. The FPGA filters the measurements, calculates the required correction and writes it to a precision DAC. The DAC generates the electronic frequency control (EFC) voltage, which steers the OCXO towards its nominal frequency.</p>
 
-    <p>This repeats continuously. Each second, a measurement is taken, the correction is calculated, and the OCXO is steered by a tiny amount. The FPGA also talks to the GNSS module over UART for configuration and status.</p>
+    <p>This process repeats every second: a measurement is taken, a correction is calculated, and the OCXO frequency is adjusted by a small amount. The FPGA also communicates with the GNSS module over UART for configuration and status monitoring.</p>
 
     <h3>The outputs</h3>
-    <p>The OCXO's 10&nbsp;MHz signal goes through an amplifier that feeds three identical output channels. Each channel has a driver and filter stage to produce a clean sine wave, followed by galvanic isolation, then a BNC connector. The isolation matters when you connect several instruments: it breaks the ground path between them, which avoids ground loops and the hum and noise they can cause.</p>
+    <p>The 10&nbsp;MHz OCXO signal is buffered by an amplifier that feeds three identical output channels. Each channel comprises a driver and filter stage, which produces a sine wave with reduced harmonic content, followed by galvanic isolation and a BNC connector. The isolation breaks the ground path between connected instruments, preventing ground loops and the interference they can introduce.</p>
 
-    <p>The fourth output is the 1&nbsp;PPS signal, generated by the FPGA from the OCXO rather than taken straight from the GNSS module. It passes through a TTL driver and a series resistor with ESD protection before reaching its BNC connector. Because the 10&nbsp;MHz outputs and the 1&nbsp;PPS both come from the same disciplined oscillator, they stay coherent with each other and locked to GNSS time.</p>
+    <p>The fourth output is the 1&nbsp;PPS signal, which is generated by the FPGA from the OCXO rather than taken directly from the GNSS module. It passes through a TTL driver and a series resistor with ESD protection before reaching its BNC connector. Because the 10&nbsp;MHz outputs and the 1&nbsp;PPS are derived from the same disciplined oscillator, they remain coherent with each other and locked to GNSS time.</p>
 
     <h2>Circuit Design</h2>
-    <p>The switch-mode power supply (SMPS) is based on the TSR 2-2450N, a compact 3-pin DC/DC converter module. This module delivers a high-efficiency 5V output at up to 2A from a 6.5–36V input. Choosing this all-in-one part over a discrete SMPS gives you up to 95% efficiency without the headache of designing complex switching circuits, picking inductors, or tuning feedback networks. It turns what could be a multi-component circuit into a simple, drop-in solution that keeps your project design effortless.</p>
+    <p>The switch-mode power supply (SMPS) is based on the TRACO Power TSR&nbsp;2-2450N, a compact three-pin DC/DC converter module. It delivers a regulated 5&nbsp;V output at up to 2&nbsp;A from an input range of 6.5 to 36&nbsp;V, with an efficiency of up to 95&nbsp;%. Using an integrated module rather than a discrete switching regulator removes the need to design the switching stage, select the inductor and compensate the feedback loop, which simplifies the design considerably.</p>
 
     <h2>FPGA Logic Design</h2>
     <p>All of the timing and control logic runs in the FPGA, written in VHDL, with no soft-core CPU and no C firmware. This keeps the design self-contained and fully deterministic, with every part of the loop implemented directly in hardware.</p>
@@ -240,8 +241,8 @@ footer p{margin:0}
 
     <h2>Files and links</h2>
     <ul class="links">
-      <li><a href="#">Schematic (PDF)</a></li>
-      <li><a href="#">Source code</a></li>
+      <li><a aria-disabled="true">Schematic (PDF)</a></li>
+      <li><a aria-disabled="true">Source code</a></li>
     </ul>
   </article>
 </main>
