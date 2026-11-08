@@ -228,6 +228,8 @@ footer p{margin:0}
 
     <h2>Circuit Design</h2>
     <p>The switch-mode power supply (SMPS) is based on the TRACO Power TSR&nbsp;2-2450N, a compact three-pin DC/DC converter module. It delivers a regulated 5&nbsp;V output at up to 2&nbsp;A from an input range of 6.5 to 36&nbsp;V, with an efficiency of up to 95&nbsp;%. Using an integrated module rather than a discrete switching regulator removes the need to design the switching stage, select the inductor and compensate the feedback loop, which simplifies the design considerably.</p>
+    
+    <p>The logic is implemented in an AMD Xilinx Artix-7 XC7A35T FPGA in the FTG256 package, a 17&nbsp;&times;&nbsp;17&nbsp;mm ball grid array with a 1.0&nbsp;mm ball pitch. The device provides 33,280 logic cells, 90 DSP slices and 1,800&nbsp;Kb of block RAM, which comfortably accommodates the control loop and filtering without external memory. The FPGA is clocked directly from the 10&nbsp;MHz OCXO, which is converted to a logic-level signal and routed to a clock-capable input pin. As the Artix-7 has no internal configuration memory, the bitstream is loaded at power-up from an external SPI flash device.
 
     <h2>FPGA Logic Design</h2>
     <p>All of the timing and control logic runs in the FPGA, written in VHDL, with no soft-core CPU and no C firmware. This keeps the design self-contained and fully deterministic, with every part of the loop implemented directly in hardware.</p>
